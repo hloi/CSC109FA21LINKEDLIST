@@ -14,6 +14,7 @@ public:
     LinkedListNode(int dataValue, LinkedListNode* next = nullptr) {
         cout << "In LinkedListNode constructor (" << dataValue << ")" << endl;
         data = dataValue;
+        this->next = next;
     }
 
     ~LinkedListNode() {
@@ -22,12 +23,12 @@ public:
     }
 
     int getData() const;
-
+    void setData(int data);
     LinkedListNode* getNext();
     void setNext(LinkedListNode *next);
 
-private:
 
+private:
     int data;
     LinkedListNode* next;
 

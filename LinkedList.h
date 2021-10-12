@@ -11,10 +11,13 @@ using namespace std;
 class LinkedList {
 public:
     LinkedList();
-    ~LinkedList();
+    virtual ~LinkedList();
     void push_front(int dataValue);
     void push_back(int dataValue);
     void insert(int dataValue, int pos);
+    void print() const;
+    LinkedListNode *getHead() const;
+    LinkedListNode *getTail() const;
 
 private:
     LinkedListNode* head;

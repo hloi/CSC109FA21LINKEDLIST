@@ -19,3 +19,7 @@ LinkedListNode *LinkedListNode::getNext() {
 void LinkedListNode::setNext(LinkedListNode *next) {
     this->next = next;
 }
+
+void LinkedListNode::setData(int data) {
+    LinkedListNode::data = data;
+}

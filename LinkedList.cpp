@@ -15,14 +15,8 @@ LinkedList::~LinkedList() {
     cout << "In LinkedList destructor" << endl;
 
     // The destructor deletes each node in the linked list
-//    while (head != nullptr) {
-//        LinkedListNode* next = head;
-//        head->setNext(head->getNext());
-//        delete next;
-//    }
-
-    for (int i=0; i<num_items; i++) {
-        LinkedListNode* next = head;
+    while (head != nullptr) {
+        LinkedListNode *next = head;
         head = head->getNext();
         delete next;
     }
@@ -31,41 +25,56 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::push_front(int dataValue) {
-    LinkedListNode* newNode = new LinkedListNode(dataValue);
-    if (head == nullptr) {
-        head = newNode;
-        tail = newNode;
-    }
-    else {
-        newNode->setNext(head);
-        head = newNode;
-    }
+    head = new LinkedListNode(dataValue, head);
     num_items++;
+    if (num_items == 1) {
+        tail = head;
+    }
 }
 
 void LinkedList::push_back(int dataValue) {
-    // when tail = nullptr or head = nullptr
-    LinkedListNode *newNode = new LinkedListNode(dataValue);
-    if (tail == nullptr) {
-        tail = newNode;
-        head = tail;
+    if (head == nullptr) {
+        push_front(dataValue);
     } else {
+        LinkedListNode *newNode = new LinkedListNode(dataValue);
         tail->setNext(newNode);
         tail = tail->getNext();
+        num_items++;
     }
-    num_items++;
 }
 
 void LinkedList::insert(int dataValue, int pos) {
-    LinkedListNode* next = head;
-    if (pos < num_items) {
-        for (int i=0; i<pos; i++) {
+    if (pos == 0) {
+        push_front(dataValue);
+    }
+    else if (pos >= num_items) {
+        push_back(dataValue);
+    }
+    else {
+        LinkedListNode* next = head;
+        for (int i=0; i<pos-1; i++) {
             next = next->getNext();
         }
         // do we need special condition for head and tail
         // insert at position
-        LinkedListNode *newNode = new LinkedListNode(dataValue);
-        newNode->setNext(next->getNext());
+        LinkedListNode *newNode = new LinkedListNode(dataValue, next->getNext());
         next->setNext(newNode);
+
     }
+}
+
+void LinkedList::print() const {
+    LinkedListNode *next = head;
+    while (next) {
+        cout << next->getData() << endl;
+        next = next->getNext();
+    }
+}
+
+LinkedListNode *LinkedList::getHead() const {
+    return head;
+}
+
+LinkedListNode *LinkedList::getTail() const {
+    return tail;
 }
